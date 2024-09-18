@@ -1,4 +1,9 @@
 ---
+import { ViewTransitions } from "astro:transitions";
+import { fade } from "astro:transitions";
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
 interface Props {
 	title: string;
 }
@@ -7,44 +12,51 @@ const { title } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html transition:animate="none" lang="es">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Anton&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
 		<title>{title}</title>
+		<ViewTransitions />
 	</head>
 	<body>
-		<slot />
+		<Header />
+		<main transition:animate={fade({ duration: '0.2s' })}>
+			<slot />
+		</main>
+		<Footer />
 	</body>
 </html>
+
 <style is:global>
 	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
+		--primary-black: #000000;
+		--secondary-red: #C70039;		;
+		--neutral-white: #F5F5F5;
+		--dark-gray: #1a1a1a;
+		--accent-gold: #FFC300;
+		--gradient-color: linear-gradient(357deg, #000000 0%, #C70039 80%);
+		--header: 'Anton', serif;
+		--body: 'Lato', sans-serif;
 	}
+	
 	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
+		scroll-behavior: smooth;
 	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
+
+	body {
+		margin: 0 auto;
+		text-align: justify;
+		font-family: var(--body);
+		background-color: var(--dark-gray);
+	}
+
+	h1, h2, h3 {
+		font-family: var(--header);
 	}
 </style>
