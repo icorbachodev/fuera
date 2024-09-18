@@ -1,0 +1,59 @@
+---
+import Card from './Card.astro';
+import { getCollection } from 'astro:content';
+
+const concerts = await getCollection('concerts');
+---
+
+<section id="concerts" class="concerts-section">
+  <h2>Próximos Conciertos</h2>
+  <div class="concerts-grid">
+    {concerts.map((concert) => (
+      <Card 
+        url={`/concerts/${concert.slug}`}
+        title={concert.data.title}
+        date={concert.data.date}
+        image={concert.data.image}
+        alt={concert.data.title}
+      />
+    ))}
+  </div>
+</section>
+
+<style>
+  .concerts-section {
+    padding: 4rem 2rem;
+    background-color: var(--dark-gray);
+    color: #fff;
+  }
+
+  .concerts-section h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--secondary-red);
+  }
+
+  .concerts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 768px) {
+    .concerts-section {
+      padding: 3rem 1rem;
+    }
+
+    .concerts-section h2 {
+      font-size: 2rem;
+    }
+
+    .concerts-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

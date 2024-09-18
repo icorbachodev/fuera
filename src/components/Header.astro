@@ -1,0 +1,163 @@
+---
+const menuItems = [
+  { name: "Inicio", link: "/" },
+  { name: "Conciertos", link: "/#concerts" },
+  { name: "Galería", link: "#gallery" },
+];
+---
+
+<header transition:persist>
+  <div class="logo">
+    <a href="/">Fuera 🎸</a>
+  </div>
+  <nav class="nav">
+    <ul class="nav-list">
+      {
+        menuItems.map((item) => (
+          <li>
+            <a href={item.link}>{item.name}</a>
+          </li>
+        ))
+      }
+    </ul>
+    <button class="menu-toggle" aria-label="Toggle navigation">
+      <span class="menu-icon"></span>
+    </button>
+  </nav>
+</header>
+
+<script is:inline>
+  const menuButton = document.querySelector('.menu-toggle');
+  const navList = document.querySelector('.nav-list');
+  const navLinks = document.querySelectorAll('.nav-list li a');
+
+  menuButton.addEventListener('click', () => navList.classList.toggle('show'));
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => navList.classList.remove('show'));
+  });
+</script>
+
+<style>
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--primary-black);
+    color: var(--neutral-white);
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-list {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .nav a {
+    color: var(--neutral-white);
+    text-decoration: none;
+    font-size: 1.1rem;
+  }
+
+  .nav a:is(:hover, :focus) {
+    color: var(--accent-gold);
+    text-decoration: underline var(--accent-gold);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+  }
+
+  .logo a {
+    background-image: var(--gradient-color);
+    color: transparent;
+    background-clip: text;
+    font-size: 1.5rem;
+    font-family: var(--header);
+    text-decoration: none;
+  }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  .menu-icon {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: #fff;
+    position: relative;
+  }
+
+  .menu-icon::before,
+  .menu-icon::after {
+    content: "";
+    display: block;
+    width: 25px;
+    height: 2px;
+    background: #fff;
+    position: absolute;
+    left: 0;
+    transition: transform 0.3s ease;
+  }
+
+  .menu-icon::before {
+    top: -7px;
+  }
+
+  .menu-icon::after {
+    top: 7px;
+  }
+
+  /* Media Queries */
+  @media (max-width: 768px) {
+    .nav-list {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      background-color: #000;
+      position: absolute;
+      top: 50px;
+      left: 0;
+      padding: 1rem 0;
+    }
+
+    .nav-list.show {
+      display: flex;
+    }
+
+    .menu-toggle {
+      display: block;
+    }
+  }
+
+  @media (max-width: 480px) {
+    header {
+      justify-content: space-between;
+      width: 86%;
+    }
+
+    .logo {
+      font-size: 1rem;
+    }
+
+    .nav a {
+      font-size: 1rem;
+      margin-left: 10px;
+    }
+  }
+</style>
