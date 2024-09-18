@@ -1,0 +1,63 @@
+---
+import Layout from "./Layout.astro";
+const { frontmatter } = Astro.props;
+---
+
+<Layout title={frontmatter.title}>
+    <section class="concert-detail">
+        <img
+            src={frontmatter.image}
+            alt={frontmatter.title}
+            class="concert-image"
+        />
+        <div class="concert-info">
+            <h1>{frontmatter.title}</h1>
+            <p><strong>Fecha:</strong> {frontmatter.date}</p>
+            <p><strong>Hora:</strong> {frontmatter.time}</p>
+            <p><strong>Precio:</strong> {frontmatter.price}</p>
+            <p><strong>Lugar:</strong> {frontmatter.location}</p>
+            <p><strong>Descripción:</strong> {frontmatter.description}</p>
+            <article class="concert-extra">
+                <slot />
+            </article>
+        </div>
+    </section>
+</Layout>
+
+<style>
+    .concert-detail {
+        color: var(--neutral-white);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2rem;
+        max-width: 800px;
+        margin: 80px auto;
+    }
+
+    .concert-image {
+        width: 80%;
+        height: auto;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+    }
+
+    .concert-info h1 {
+        font-size: 2.5rem;
+        color: var(--secondary-red);
+    }
+
+    .concert-info p {
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .concert-info strong {
+        color: var(--accent-gold);
+    }
+
+    .concert-extra {
+        margin-top: 1.5rem;
+        font-size: 1.1rem;
+    }
+</style>
