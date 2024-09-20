@@ -1,0 +1,139 @@
+---
+const images = [
+    'https://t4.ftcdn.net/jpg/01/48/33/65/360_F_148336519_QTPr8wfub4YNRZTAyAXsX9USGIjVxJWD.jpg',
+    'https://images.pexels.com/photos/811838/pexels-photo-811838.jpeg?cs=srgb&dl=pexels-edwardeyer-811838.jpg&fm=jpg',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgrV4RORYDC7uXAZPz_tPY7VewqEMiF7jhjA&s',
+    'https://media.istockphoto.com/id/1328150617/photo/rock-guitarist-playing-guitar-in-a-live-show-with-stage-lights.jpg?s=612x612&w=0&k=20&c=WBs5dKyJHcb-yKT89zH2ZBwp_5mlvpDG6CTAGI9G944=',
+    'https://cdn.pixabay.com/photo/2016/11/19/13/57/drum-set-1839383_1280.jpg',
+    'https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg',
+]
+---
+
+<section id="gallery" class="gallery">
+    <h2>Galería de Fotos</h2>
+    <div class="gallery-container">
+        {images.map((image) => (
+            <img src={image} alt="Foto banda" class="gallery-item" />
+        ))}
+    </div>
+
+    <div class="image-modal" id="imageModal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage" />
+    </div>
+</section>
+
+<script is:inline>
+    document.addEventListener("astro:page-load", () => {
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("modalImage");
+        const closeBtn = document.querySelector(".close");
+        const galleryItems = document.querySelectorAll(".gallery-item");
+
+        // Abrir el modal cuando se hace clic en una imagen
+        galleryItems.forEach((item) => {
+            item.addEventListener("click", () => {
+                modal.style.display = "flex";
+                const imgSrc = item.getAttribute("src");
+                modalImg.setAttribute("src", imgSrc);
+            });
+        });
+
+        // Cerrar el modal cuando se hace clic en la 'x'
+        closeBtn.addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        // Cerrar el modal cuando se hace clic fuera de la imagen
+        modal.addEventListener("click", (e) => {
+            if (e.target !== modalImg) {
+                modal.style.display = "none";
+            }
+        });
+    });
+</script>
+
+<style>
+    /* Galería */
+    .gallery {
+        text-align: center;
+        margin: 50px 0;
+    }
+
+    .gallery h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        color: var(--secondary-red);
+    }
+
+    .gallery-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        justify-content: center;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .gallery-item {
+        width: 100%;
+        height: 250px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover {
+        transform: scale(1.05); /* Pequeño efecto al pasar el ratón */
+    }
+
+    /* Modal (zoom) */
+    .image-modal {
+        display: none; /* Oculto por defecto */
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        max-width: 90%;
+        max-height: 90%;
+        margin: auto;
+        display: block;
+    }
+
+    .close {
+        position: absolute;
+        top: 15px;
+        right: 35px;
+        color: white;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #bbb;
+    }
+
+    @media (max-width: 768px) {
+        .gallery {
+            padding: 3rem 1rem;
+        }
+
+        .gallery h2 {
+            font-size: 2rem;
+        }
+
+        .gallery-container {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
