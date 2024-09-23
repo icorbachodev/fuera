@@ -1,0 +1,78 @@
+---
+const videos = [
+  {
+    id: '1',
+    title: "Mi equivocación",
+    url: "https://www.youtube.com/embed/bhjG877g5Os?si=AmIFlWpq5pQRXPQ2",
+  },
+  {
+    id: '2',
+    title: "Por si algún día vuelvo",
+    url: "https://www.youtube.com/embed/Z50czc0Jhu8?si=5Xg87dU5f2n3VkrH",
+  },
+];
+---
+
+<section id="video" class="video-gallery">
+  <h2 class="section-title">Nuestros Videos</h2>
+  <div class="video-grid">
+    {videos.map(video => (
+      <div class="video-card">
+        <div class="video-frame">
+          <iframe
+            width="560"
+            height="315"
+            src={video.url}
+            title={video.title}
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+        <h3 class="video-title">{video.title}</h3>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .video-gallery {
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: var(--secondary-red);
+  }
+
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    justify-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .video-card {
+    background: #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+  }
+
+  .video-frame {
+    overflow: hidden;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .video-title {
+    font-size: 1.25rem;
+    color: var(--accent-gold);
+    padding: 10px;
+    margin: 0;
+  }
+</style>

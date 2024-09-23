@@ -1,0 +1,90 @@
+---
+const members = [
+  {
+    id: 1,
+    name: "Jesús",
+    instrument: "Guitarra principal",
+    image: "/assets/bandMembers/Jesus.jpg",
+  },
+  {
+    id: 2,
+    name: "Francisco",
+    instrument: "Batería",
+    image: "/assets/bandMembers/Fran.jpeg",
+  },
+  {
+    id: 3,
+    name: "Álvaro",
+    instrument: "Bajo",
+    image: "/assets/bandMembers/Alvaro.jpg",
+  },
+  {
+    id: 4,
+    name: "Luís",
+    instrument: "Voz principal y guitarra",
+    image: "/assets/bandMembers/Luis.jpg",
+  },
+];
+---
+
+<section id="members" class="band-members">
+  <h2 class="section-title">Miembros de la Banda</h2>
+  <div class="members-grid">
+    {members.map(member => (
+      <div class="member-card">
+        <img src={member.image} alt={member.name} class="member-photo" />
+        <h3 class="member-name">{member.name}</h3>
+        <p class="member-instrument">{member.instrument}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .band-members {
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    color: var(--secondary-red);
+    margin-bottom: 30px;
+  }
+
+  .members-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    justify-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .member-card {
+    background: #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    max-width: 250px;
+  }
+
+  .member-photo {
+    width: 100%;
+    height: 350px;
+    border-radius: 2%;
+    object-fit: cover;
+  }
+
+  .member-name {
+    font-size: 1.5rem;
+    color: var(--secondary-red);
+    margin: 5px;
+  }
+
+  .member-instrument {
+    font-size: 1.1rem;
+    color: var(--accent-gold);
+  }
+</style>
