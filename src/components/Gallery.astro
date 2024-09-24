@@ -6,13 +6,13 @@ import { images } from "./ImagePaths";
     <h2>Galería de Fotos</h2>
     <div class="gallery-container">
         {images.map((image) => (
-            <img src={image} alt="Foto banda" class="gallery-item" />
+            <img src={image} decoding="async" loading="lazy" alt="Foto banda" class="gallery-item" />
         ))}
     </div>
 
     <div class="image-modal" id="imageModal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="modalImage" />
+        <span class="close"></span>
+        <img decoding="async" loading="lazy" class="modal-content" id="modalImage" />
     </div>
 </section>
 
@@ -109,6 +109,10 @@ import { images } from "./ImagePaths";
         font-size: 40px;
         font-weight: bold;
         cursor: pointer;
+    }
+
+    .close::before {
+        content: "\d7";
     }
 
     .close:hover,

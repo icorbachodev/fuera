@@ -32,7 +32,7 @@ const members = [
   <div class="members-grid">
     {members.map(member => (
       <div class="member-card">
-        <img src={member.image} alt={member.name} class="member-photo" />
+        <img src={member.image} decoding="async" loading="lazy" alt={member.name} class="member-photo" />
         <h3 class="member-name">{member.name}</h3>
         <p class="member-instrument">{member.instrument}</p>
       </div>
@@ -68,6 +68,11 @@ const members = [
     padding: 20px;
     text-align: center;
     max-width: 250px;
+    transition: transform 0.3s ease;
+  }
+
+  .member-card:hover {
+    transform: translateY(-10px);
   }
 
   .member-photo {

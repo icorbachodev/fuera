@@ -4,7 +4,7 @@ const { url, title, date, image, alt } = Astro.props;
 
 <a href={url}>
   <div class="concert-card">
-      <img src={image} alt={alt} class="concert-image" />
+      <img src={image} decoding="async" loading="lazy" alt={alt} class="concert-image" />
       <div class="concert-info">
         <h3 class="concert-title">{title}</h3>
         <p class="concert-date">{date}</p>
