@@ -7,6 +7,8 @@ const { frontmatter } = Astro.props;
     <section class="concert-detail">
         <img
             src={frontmatter.image}
+            decoding="async" 
+            loading="lazy"
             alt={frontmatter.title}
             class="concert-image"
         />
